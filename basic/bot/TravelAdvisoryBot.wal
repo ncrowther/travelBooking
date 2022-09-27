@@ -1,0 +1,23 @@
+
+	*ñ¨û,€_C­„	Ã§¯€Ñ
+defVar --name in_destination --type String --value RussianFederation --parameter  --required 
+defVar --name out_doNotTravel --type Boolean --value False --output 
+defVar --name out_travelAdvice --type String --output 
+defVar --name browserInstance --type String --value web01
+defVar --name success --type Boolean
+defVar --name travelAdviceBaseUrl --type String --value "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages"
+defVar --name travelAdviceFullUrl --type String
+defVar --name foundIndex --type Numeric
+
+setVar --name "${travelAdviceFullUrl}" --value "${travelAdviceBaseUrl}/${in_destination}.html"
+webStart --name "${browserInstance}" --type "Chrome"
+webNavigate --url "${travelAdviceFullUrl}"
+//Get travel advisory
+webWaitElement --selector "CssSelector" --css "#tsg-rwd-advisories > div > a > h3.tsg-rwd-eab-title-frame" success=value
+webGetFieldHTML --selector "CssSelector" --css "#tsg-rwd-advisories > div > a > h3.tsg-rwd-eab-title-frame" out_travelAdvice=value
+htmlToText --html "${out_travelAdvice}" out_travelAdvice=value
+parseText --text "${out_travelAdvice}" --query "Level 4" --startindex 1 foundIndex=value
+if --left "${foundIndex}" --operator "Greater_Than" --right 0
+	setVar --name "${out_doNotTravel}" --value true
+endIf
+webClose --name "${browserInstance}""	P4¸Ž	wÔH˜@>J¶0z*21.0.4.0

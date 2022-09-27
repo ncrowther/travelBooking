@@ -1,0 +1,36 @@
+
+	)◊èºw`àK∫cl‚ãÏWÿdefVar --name in_destination --type String --value US --parameter  --required 
+defVar --name in_nationality --type String --value UK --parameter  --required 
+defVar --name out_visaRequired --type Boolean --value False --output 
+defVar --name UKcitizenToUS --type Rule
+defVar --name UScitizenToUK --type Rule
+defVar --name FRcitizenToUK --type Rule
+executeRules --label VisaRules
+
+logMessage --message "visaRequired: ${out_visaRequired}\r\n" --type "Info"
+
+beginRules --name VisaRules
+case --name "UK citizen to US" --switches "CaseSwitchesAll" UKcitizenToUS=output
+	when --left "${in_destination}" --operator "Equal_To" --right US --comment "Desination is US"
+	when --left "${in_nationality}" --operator "Equal_To" --right UK --comment "Nationality is UK"
+then
+	setVar --name "${out_visaRequired}" --value true --comment "UK Visa Required"
+endCase
+case --name "US citizen to UK" --switches "CaseSwitchesAll" UScitizenToUK=output
+	when --left "${in_destination}" --operator "Equal_To" --right UK --comment "Destination is UK"
+	when --left "${in_nationality}" --operator "Equal_To" --right US --comment "Nationality is US"
+then
+	setVar --name "${out_visaRequired}" --value true --comment "US Visa Required"
+endCase
+case --name "French citizen to UK" --switches "CaseSwitchesAll" FRcitizenToUK=output
+	when --left "${in_destination}" --operator "Equal_To" --right UK --comment "Destination is UK"
+	when --left "${in_nationality}" --operator "Equal_To" --right FR --comment "Nationality is FR"
+then
+	setVar --name "${out_visaRequired}" --value false --comment "Schengen area - Visa NOT Required. You can travel to countries in the Schengen area for up to 90 days in any 180-day period without a visa"
+endCase
+endRules
+
+
+
+
+"	Ño8hçAÅ»É¶iß´¢*21.0.4.0
