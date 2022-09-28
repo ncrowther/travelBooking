@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Kogito Travel Agency</title>
+    <title>IBM Travel Agency</title>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -13,9 +13,9 @@
 <body>
 <div class="container" role="main">
     <div class="jumbotron">
-        <h1>Kogito Travel Agency</h1>
+        <h1>IBM Travel Agency</h1>
 
-        <p>Plan your next trip with Kogito Travel Agency, it's easy and fast!</p>
+        <p>Plan your next trip</p>
     </div>
     <div class="page-header">
         <div class="row">
@@ -31,7 +31,8 @@
                         <th>Traveller name</th>
                         <th>Destination</th>
                         <th>Dates</th>
-                        <th>Visa required</th>
+                        <th>Banned</th>     
+                        <th>Advisory</th>                   
                         <th>Hotel</th>
                         <th>Flight</th>
                         <th>Actions</th>
@@ -86,12 +87,6 @@
         }, "json");
     }
 
-    function sendVisaApplication(id, taskName, taskId) {
-        $.post("/travels/" + id + "/" + taskName + "/" + taskId, JSON.stringify({'visaApplication': $('#sendVisaApplication').val()}), function () {
-            load();
-        }, "json");
-    }
-
     function load() {
         $("#content").children().remove();
         $.getJSON("/travels", function (data) {
@@ -99,7 +94,8 @@
                 $("<tr><td>" + val.traveller.lastName + ", " + val.traveller.firstName + "</td>" +
                 "<td>" + val.trip.country + ", " + val.trip.city + "</td>" +
                 "<td>" + new Date(val.trip.begin).toLocaleDateString() + " - " + new Date(val.trip.end).toLocaleDateString() + "</td>" +
-                "<td>" + (val.trip.visaRequired ? 'Yes' : 'No') + "</td>" +
+                "<td>" + (val.trip.banned ? 'Yes' : 'No') + "</td>" +      
+                "<td>" + val.trip.travelAdvisory + "</td>" +            
                 "<td>" + (val.hotel != null ? val.hotel.name : '') + "</td>" +
                 "<td>" + (val.flight != null ? val.flight.flightNumber : '')  + "</td>" +
                         "<td>" +
@@ -110,11 +106,11 @@
                         "data-lastname='" + val.traveller.lastName + "' " +
                         "data-email='" + val.traveller.email + "' " +
                         "data-nationality='" + val.traveller.nationality + "' " +
-                        "data-visa-application='" + val.traveller.visaApplication + "' " +
                         "data-country='" + val.trip.country + "' " +
                         "data-city='" + val.trip.city + "' " +
+                        "data-travelAdvisory='" + val.trip.travelAdvisory + "' " +
                         "data-begin='" + new Date(val.trip.begin).toLocaleDateString() + "' " +
-                        "data-end='" + new Date(val.trip.end).toLocaleDateString() + "' " +
+                        "data-end='" + new Date(val.trip.end).toLocaleDateString() + "' " +                     
                         "data-hotelname='" + (val.hotel != null ? val.hotel.name : "") + "' " +
                         "data-address='" + (val.hotel != null ? val.hotel.address.street : "") + "' " +
                         "data-bookingnumber='" + (val.hotel != null ? val.hotel.bookingNumber : "") + "' " +
@@ -124,14 +120,6 @@
                         "data-departure='" + (val.flight != null ? new Date(val.flight.departure).toLocaleString() : "") + "' " +
                         "data-id='" + val.id + "'>" +
                         "   <span>Details</span>" +
-                        "</button>&nbsp;" +
-                        "<button class='btn btn-primary btn-sm' " +
-                        "data-toggle='modal' " +
-                        "data-target='#tasksModal' " +
-                        "data-firstname='" + val.traveller.firstName + "' " +
-                        "data-lastname='" + val.traveller.lastName + "' " +
-                        "data-id='" + val.id + "'>" +
-                        "   <span>Tasks</span>" +
                         "</button>&nbsp;" +
                         "<button class='btn btn-danger btn-sm product-delete' data-id='" + val.id + "'>" +
                         "   <span>Cancel</span>" +
@@ -174,12 +162,13 @@
             modal.find('#destinationCity').val("");
             modal.find('#tripBegin').val("");
             modal.find('#tripEnd').val("");
+            modal.find('#travelAdvisory').val("");
 
             productAction.click(function () {
 
                 var address = {street: $("#street").val(), city: $("#city").val(), Postcode: $("#postCode").val(), country: $("#country").val()};
                 var traveller = {firstName: $("#firstName").val(), lastName: $("#lastName").val(), email: $("#email").val(), nationality: $("#nationality").val(), address: address};
-                var trip = {country: $("#destinationCountry").val(), city: $("#destinationCity").val(), begin: $("#tripBegin").val() + 'T00:00:00.000+02:00', end: $("#tripEnd").val() + 'T00:00:00.000+02:00'};
+                var trip = {country: $("#destinationCountry").val(), city: $("#destinationCity").val(), banned: $("#banned").val(), travelAdvisory: $("#travelAdvisory").val(), begin: $("#tripBegin").val() + 'T00:00:00.000+02:00', end: $("#tripEnd").val() + 'T00:00:00.000+02:00'};
                 var travelRequest = JSON.stringify({traveller: traveller, trip: trip});
 
                 create(travelRequest);
@@ -198,17 +187,11 @@
             modal.find('#lastName').val(button.data("lastname"));
             modal.find('#email').val(button.data("email"));
             modal.find('#nationality').val(button.data("nationality"));
-            if(button.data("visa-application") !== null && button.data("visa-application") !== '') {
-                $('#visa-application-group').show();
-                modal.find('#visaApplication').attr('href', button.data("visa-application"));
-            } else {
-                $('#visa-application-group').hide();
-                modal.find('#visaApplication').attr('href', '#');
-            }
             modal.find('#destinationCountry').val(button.data("country"));
             modal.find('#destinationCity').val(button.data("city"));
             modal.find('#tripBegin').val(button.data("begin"));
             modal.find('#tripEnd').val(button.data("end"));
+            modal.find('#travelAdisory').val(button.data("travelAdvisory"));
 
             modal.find('#hotelname').val(button.data("hotelname"));
             modal.find('#bookingNumber').val(button.data("bookingnumber"));
@@ -219,35 +202,6 @@
             modal.find('#departure').val(button.data("departure"));
             modal.find('#arrival').val(button.data("arrival"));
         })
-
-        $("#tasksModal").on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var action = button.data('action');
-            var travelId = button.data('id');
-            var modal = $(this);
-            modal.find('.modal-title').text("Tasks for " + button.data("lastname") + ", " + button.data("firstname"));
-
-            $("#taskscontent").children().remove();
-            $.getJSON("/travels/"+ travelId + "/tasks", function (data) {
-                $.each(data, function (index, task) {
-                    let taskId = task.id;
-                    let taskName = task.name;
-                    let element = "<tr><td>" + taskName + "</td><td>";
-                    if (taskName === 'VisaApplication') {
-                        element += "<div class='form-group'><label for='sendVisaApplication'>Link to visa application</label><input class='form-control' type='text' id='sendVisaApplication' name='sendVisaApplication' required></div>" +
-                        "<button class='btn btn-primary btn-sm' onclick=\"sendVisaApplication('" + travelId + "', '" + taskName + "', '" + taskId + "')\" data-dismiss=\"modal\" " +
-                        "   <span>Send</span>" +
-                        "</button>";
-                    } else {
-                        element += "<button class='btn btn-primary btn-sm' onclick=\"completeTask('" + travelId + "', '" + taskName + "', '" + taskId + "')\" data-dismiss=\"modal\" " +
-                        "   <span>Complete</span>" +
-                        "</button>";
-                    }
-                    element +=	"</td></tr>";
-                    $(element).appendTo("#taskscontent");
-                });
-        })
-    })
     }
 </script>
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
@@ -295,16 +249,38 @@
                                         class="form-control" id="zipCode" name="zipCode" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="country">Country</label> <input type="text"
-                                        class="form-control" id="country" name="country" required>
+                                    <label for="country">Country</label> 
+                                    <br>
+                                    <select name="country" id="country" required>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option selected value="Russian Federation">Russian Federation</option>
+                                        <option value="France">France</option>
+                                        <option value="Spain">Spain</option>  
+                                        <option value="Italy">Italy</option> 
+                                        <option value="Germany">Germany</option>                                                                                                                     
+                                        <option value="Austria">Austria</option>
+                                        <option value="Poland">Poland</option>
+                                        <option value="Ukraine">Ukraine</option>                                        
+                                    </select>  
                                 </div>
                             </div>
 
                             <h3>Trip</h3>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-group">
-                                    <label for="destinationCountry">Country</label> <input type="text"
-                                        class="form-control" id="destinationCountry" name="destinationCountry" required>
+                                    <label for="destinationCountry">Country</label>
+                                    <br>
+                                    <select name="destinationCountry" id="destinationCountry" required>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option selected value="Russian Federation">Russian Federation</option>
+                                        <option value="France">France</option>
+                                        <option value="Spain">Spain</option>  
+                                        <option value="Italy">Italy</option> 
+                                        <option value="Germany">Germany</option>                                                                                                                     
+                                        <option value="Austria">Austria</option>
+                                        <option value="Poland">Poland</option>
+                                        <option value="Ukraine">Ukraine</option>                                        
+                                    </select>                      
                                 </div>
                                 <div class="form-group">
                                     <label for="destinationCity">City</label> <input type="text"
@@ -318,8 +294,7 @@
                                     <label for="tripEnd">End at</label> <input
                                         type="text" class="form-control" id="tripEnd"
                                         name="tripEnd" required>
-                                </div>
-
+                                </div>                                                           
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default"
@@ -364,12 +339,7 @@
                                         type="text" class="form-control" id="nationality"
                                         name="form-control" readonly>
                                 </div>
-                                <div id="visa-application-group" class="form-group">
-                                    <label for="visaApplication">Visa application</label>
-                                    <p>
-                                        <a href="#" id="visaApplication" target="_blank" >Link to visa application</a>
-                                    </p>
-                                </div>
+
                             </div>
 
                             <div class="col-md-6 col-sm-6 col-xs-6">
@@ -392,7 +362,7 @@
                                     <label for="tripEnd">End at</label> <input
                                         type="text" class="form-control" id="tripEnd"
                                         name="tripEnd" readonly>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                         <div class="row">
@@ -447,42 +417,3 @@
             </div>
         </div>
     </div>
-
-
-<div class="modal fade" id="tasksModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title" id="detailsModalTitle">Details of a travel</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                        <div class="row">
-
-                            <div class="col-md-12">
-                                <h1>Tasks</h1>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Task name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="taskscontent">
-                                    <!-- filled using Ajax -->
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>

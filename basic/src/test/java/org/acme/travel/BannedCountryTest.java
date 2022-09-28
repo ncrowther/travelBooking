@@ -22,9 +22,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.acme.travels.Address;
-import org.acme.travels.Hotel;
-import org.acme.travels.Traveller;
 import org.acme.travels.Trip;
 import org.junit.jupiter.api.Test;
 import org.kie.kogito.Model;
@@ -37,34 +34,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
-public class BookHotelTest {
+public class BannedCountryTest {
 
     @Inject
-    @Named("hotelBooking")
-    Process<? extends Model> bookHotelProcess;
+    @Named("bannedCountryCheck")
+    Process<? extends Model> bannedCountryProcess;
 
     @Test
-    public void testBookingHotel() {
+    public void testBookingFlight() {
 
-        assertNotNull(bookHotelProcess);
+        assertNotNull(bannedCountryProcess);
 
-        Model m = bookHotelProcess.createModel();
+        Model m = bannedCountryProcess.createModel();
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("traveller", new Traveller("John", "Doe", "john.doe@example.com", "American", new Address("main street", "Boston", "10005", "US")));
-        parameters.put("trip", new Trip("London", "UnitedKingdom", new Date(), new Date()));
+        parameters.put("trip", new Trip("Moscow", "Russian Federation", new Date(), new Date()));
 
         m.fromMap(parameters);
 
-        ProcessInstance<?> processInstance = bookHotelProcess.createInstance(m);
+        ProcessInstance<?> processInstance = bannedCountryProcess.createInstance(m);
         processInstance.start();
         assertEquals(org.kie.api.runtime.process.ProcessInstance.STATE_COMPLETED, processInstance.status());
 
         Model result = (Model) processInstance.variables();
-        assertEquals(3, result.toMap().size());
-        Hotel hotel = (Hotel) result.toMap().get("hotel");
-        assertNotNull(hotel);
-        assertEquals("Bates Motel", hotel.getName());
-        assertEquals("XX-012345", hotel.getBookingNumber());
-        assertEquals("09876543", hotel.getPhone());
+        assertEquals(1, result.toMap().size());
+        Trip trip = (Trip) result.toMap().get("trip");
+        assertNotNull(trip);
+        assertEquals(true, trip.isBanned());
+        assertEquals("Russia - Level 4: Do Not Travel", trip.getTravelAdvisory());
     }
 }

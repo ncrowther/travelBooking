@@ -1,8 +1,8 @@
-# Kogito Travel Agency - base version
+# IBM Travel Agency - base version
 
 ## Description
 
-During this workshop we will create a software system for a startup travel agency called Kogito Travel Agency. The first iteration of the system will consist of a set of services that are able to deal with travel requests and the booking of hotels and flights.
+During this workshop we will create a software system for a startup travel agency called IBM Travel Agency. The first iteration of the system will consist of a set of services that check the destination country against a banned list and then if ok, it deals with the booking of hotels and flights.
 
 ## Activities to perform
 
@@ -16,7 +16,8 @@ During this workshop we will create a software system for a startup travel agenc
   * Flight
   * Address
   * Trip
-* Create service classes  
+* Create service classes 
+  * BannedCountryCheck 
   * HotelBookingService
   * FlightBookingService
 * Create decision logic
@@ -32,7 +33,7 @@ During this workshop we will create a software system for a startup travel agenc
 
 ## Data model
 
-Kogito Travel Agency booking system will be based on following data model
+IBM Travel Agency booking system will be based on following data model
 
 ### Traveller
 
@@ -58,7 +59,7 @@ Location that is associated with either traveller or hotel
 
 ## Decision logic
 
-The decision logic will be implemented as a decision table. The logic will be responsible for verifying whether a given traveller requires a visa to enter a given country or not. The decision logic reason over the following data/facts
+The decision logic will be implemented as a decision table. The logic will be responsible for verifying whether a given traveller requires a visa to enter a given country or not. The decision logic reasons over the following data/facts
 
 * Destination that the traveller wants to go - country
 * Nationality of the traveller
@@ -134,7 +135,7 @@ To run the generated native executable, generated in `target/`, execute
 
 ## User interface
 
-Kogito Travel Agency comes with basic UI that allows to
+IBM Travel Agency comes with basic UI that allows to
 
 ### Plan new trips
 
@@ -154,7 +155,7 @@ Kogito Travel Agency comes with basic UI that allows to
 
 ### Cancel selected travel request
 
-To start Kogito Travel Agency UI just point your browser to [http://localhost:8080](http://localhost:8080)
+To start IBM Travel Agency UI just point your browser to [http://localhost:8080](http://localhost:8080)
 
 ## REST API
 
@@ -162,7 +163,7 @@ Once the service is up and running, you can use the following examples to intera
 
 ### POST /travels
 
-Send travel that requires does not require visa
+Send travel that does not require visa
 
 ```sh
 curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8080/travels -d @- << EOF

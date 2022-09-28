@@ -24,7 +24,7 @@ public class Trip {
     private Date begin;
     private Date end;
     private boolean visaRequired;
-    private boolean blackListed;
+    private boolean banned;
     private String travelAdvisory;
 
     public Trip() {
@@ -37,7 +37,7 @@ public class Trip {
         this.country = country;
         this.begin = begin;
         this.end = end;
-        this.blackListed = false;
+        this.banned = false;
         this.travelAdvisory = "No advisory";
     }
 
@@ -81,14 +81,6 @@ public class Trip {
         this.visaRequired = visaRequired;
     }
 
-    public boolean isBlackListed() {
-        return blackListed;
-    }
-
-    public void setBlackListed(boolean blackListed) {
-        this.blackListed = blackListed;
-    }
-
     public String getTravelAdvisory() {
         return travelAdvisory;
     }
@@ -97,9 +89,17 @@ public class Trip {
         this.travelAdvisory = travelAdvisory;
     }
 
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
+
     @Override
     public String toString() {
-        return "Trip [begin=" + begin + ", blackListed=" + blackListed + ", city=" + city + ", country=" + country
+        return "Trip [begin=" + begin + ", Banned=" + banned + ", city=" + city + ", country=" + country
                 + ", end=" + end + ", travelAdvisory=" + travelAdvisory + ", visaRequired=" + visaRequired + "]";
     }
 
