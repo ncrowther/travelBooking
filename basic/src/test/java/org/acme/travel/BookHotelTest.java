@@ -63,7 +63,7 @@ public class BookHotelTest {
         assertEquals(3, result.toMap().size());
         Hotel hotel = (Hotel) result.toMap().get("hotel");
         assertNotNull(hotel);
-        assertEquals("Bates Motel", hotel.getName());
+        assertEquals("Hotel Richmond", hotel.getName());
         assertEquals("XX-012345", hotel.getBookingNumber());
         assertEquals("09876543", hotel.getPhone());
     }

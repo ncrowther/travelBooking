@@ -2,7 +2,7 @@
 
 ## Description
 
-During this workshop we will create a software system for a startup travel agency called IBM Travel Agency. The first iteration of the system will consist of a set of services that check the destination country against a banned list and then if ok, it deals with the booking of hotels and flights.
+The system calls an RPA bot that checks the desintation in a travel website. If safe, it books hotels and flights. If not safe the travel booking is halted.
 
 ## Activities to perform
 
@@ -20,14 +20,12 @@ During this workshop we will create a software system for a startup travel agenc
   * BannedCountryCheck 
   * HotelBookingService
   * FlightBookingService
-* Create decision logic
-  * Visa check
-* Create business logic
+* Create processes
   * Public business process to deal with complete travel request
   * Private business process to deal with hotel booking
   * Private business process to deal with flight booking
-* Create a test case that makes use of processes and decisions
-* Create or import UI components
+* Create test cases for processes
+* Create UI components
 * Add metrics support for processes and decisions
 * Create dashboard based on metrics
 
@@ -57,17 +55,11 @@ Location that is associated with either traveller or hotel
 
 <p align="center"><img width=75%  src="docs/images/datamodel.png"></p>
 
-## Decision logic
+## RPA Bot
 
-The decision logic will be implemented as a decision table. The logic will be responsible for verifying whether a given traveller requires a visa to enter a given country or not. The decision logic reasons over the following data/facts
+The RPA bot checks the desintation in the travel.state.gov website.    The bot takes as input the desination, and the output is the travel advisory with a status of true meaning it is ok to travel, and false meaning it is not.
 
-* Destination that the traveller wants to go - country
-* Nationality of the traveller
-* Length of the stay
-
-The result will be “yes” or “no”.
-
-<p align="center"><img width="100%" src="docs/images/decisiontable.png"></p>
+<p align="center"><img width="100%" src="docs/images/governmentTravelAdvisoryWebsite.png"></p>
 
 ## Business logic
 

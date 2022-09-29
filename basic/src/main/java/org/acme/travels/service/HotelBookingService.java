@@ -25,6 +25,6 @@ import org.acme.travels.Trip;
 public class HotelBookingService {
 
     public Hotel bookHotel(Trip trip) {
-        return new Hotel("Bates Motel", new Address("street", trip.getCity(), "12345", trip.getCountry()), "09876543", "XX-012345");
+        return new Hotel("Hotel Richmond", new Address("street", trip.getCity(), "12345", trip.getCountry()), "09876543", "XX-012345");
     }
 }
