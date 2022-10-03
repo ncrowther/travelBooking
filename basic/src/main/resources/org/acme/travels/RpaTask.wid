@@ -1,0 +1,22 @@
+[
+    [
+        "name" : "RpaTask",
+        "displayName" : "Rpa Task",
+        "icon" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANqSURBVFiFxZdNTFxlFIafc+8QplgVKLUBAjYqaexAAbsw0rHYnUSNMam1oUlNMJj+aIyJLtxN3Bh/El2hXWhsQrUrYzeGuOl0MsKiiaXTQIyUMlgptgzKn+0U5n7HBWU6A8ydnwz4rr7v3HPe97333O+eXKFA+HsinSryGaiKWO+FjzV+XwiPFCheoSKTQOm9UFxUa8In9vyTL5dViAFH7W0p4gBeY0tlIVwFGRg4sXsU1b6U0E/9bzZe2zQDiGjJremX2rwT5/Z5b/xYcjP2MiK6eQaAYOBAorU0drWldGo0GDiQKJSnYAPFwv9uwLNe8LnPL5U7ZdZj6ojrMR1biu4A8PdE9rrlia1q3zbXgu+2zqy5lrp59tRwtXES3yDyfHbveUNB+kqMdAVP+v5aCaa1wKhzZoPEAQS0Y8lyzqwKLsN/aqhejRnfIPE02Ib60Mmm65DyBNRJPLoZ4gCOmJ0r6/sGLPcXrphI1bIBfK8GKq2t5S2eBx48mJpoi+HFml/pqI6gChN3cvvcP105wsG6izxSOsvVhWp01cxbnJr8uaLqiRtTw8E78uRrgU9Ued9TXsXDre1piUd3huis7192jfBB5DCDM+6daq2I8lHT2eS+d9xP77g/LWf20gUSMzEUPrZUeTsT2VPl0eRaUPZWjLnf+qoawLVG4B0L8GZKGJ6vTd/P1WbIdKmZr3FL9677JVzB6Wg7d50SHt96i19iDQxMN2Q1MBBr4IuRDtq2jTA6v4Ozfz7jmu9q4K7j4XR0f1bR1eibbKZvsjmXVLWAy/mQa3wBEx0ETRn/qpjoIBpfyMsoyqDHqOcFSxKvW1vKfEBn1iIRnNGLOH9cwaqqAwUzfR2W4niqs7cIwNpS9h0zDKnNt8kD2vZVZL+oXMiJwSQwE7+hc7FlTw9tx6rdBZZrR5NQ0fb+Y3tCkOUdyAjLg1XXWFDpGqrkyrHnisKYC1K0kgZmtzMM/L0J8tP3tNINDB3yLSJ0A/ENFI8LdA8d8i2uBNZMwH09l3eJyCuKHAHWa/QCcE5F/s1H2VIzhmN+CL/V8ntqPOMI9n95pUvh67SgcN62zRuh7ubsQyFHZDwFRlXl/ti+Laofhm82fUpATLHEXQ0koYRty+4KHd89UkzhrAaMOOc9eI6Gjzf2FvrblQv+A9dLMDwy+oO0AAAAAElFTkSuQmCC",
+        "category" : "Custom task",
+        "documentation" : "Rpa task",
+        "parameters" : [         
+            "BaseURL" : new StringDataType(),
+            "TenantId" : new StringDataType(),
+            "Username" : new StringDataType(),
+            "Password" : new StringDataType(),
+            "ProcessName" : new StringDataType(),
+            "WaitSeconds" : new IntegerDataType(),
+            "Payload" : new StringDataType()
+        ],
+        "results" : [
+            "Status" : new BooleanDataType(),
+            "ResponsePayload" : new StringDataType()
+        ]
+    ]
+]

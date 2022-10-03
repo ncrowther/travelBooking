@@ -59,7 +59,7 @@ Location that is associated with either traveller or hotel
 
 The RPA bot checks the desintation in the travel.state.gov website.    The bot takes as input the desination, and the output is the travel advisory with a status of true meaning it is ok to travel, and false meaning it is not.
 
-<p align="center"><img width="100%" src="docs/images/governmentTravelAdvisoryWebsite.png"></p>
+<p align="center"><img width="100%" src="docs/images/GovernmentAdvisoryWebSite.png"></p>
 
 ## Business logic
 

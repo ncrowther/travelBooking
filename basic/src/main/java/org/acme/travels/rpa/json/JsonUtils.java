@@ -24,30 +24,44 @@ import org.json.JSONObject;
 public class JsonUtils {
 
     public static String getBearerToken(String jsonStr) {
-        JSONObject jsonResonse = new JSONObject(jsonStr.toString());
+        JSONObject jsonResonse = new JSONObject(jsonStr);
         return (String) jsonResonse.get("access_token");
     }
 
     public static String getProcessId(String response) {
-        JSONObject jsonResonse = new JSONObject(response.toString());
+        JSONObject jsonResonse = new JSONObject(response);
         return (String) jsonResonse.get("id");
     }
 
     public static String getStatus(String response) {
-        JSONObject jsonResponse = new JSONObject(response.toString());
-        return (String) jsonResponse.get("status");
+        final String STATUS = "status";
+        JSONObject jsonResponse = new JSONObject(response);
+        if (jsonResponse.has(STATUS)) {
+            return (String) jsonResponse.get(STATUS);
+        } else {
+            return "PENDING";
+        }
+    }
+
+    public static Boolean getBoolean(String parameter, String jsonString) {
+        JSONObject jsonObj = new JSONObject(jsonString);
+        return (Boolean) jsonObj.get(parameter);
+    }
+
+    public static String getString(String parameter, String jsonString) {
+        JSONObject jsonObj = new JSONObject(jsonString);
+        return (String) jsonObj.get(parameter);
     }
 
     private static String getBotScriptName(JSONObject schema) {
         String botScriptName = schema.getString("name");
         return botScriptName;
-
     }
 
     public static String findProcessId(String response, String processName) {
 
         String processId = null;
-        JSONObject jsonResponse = new JSONObject(response.toString());
+        JSONObject jsonResponse = new JSONObject(response);
 
         JSONArray processes = jsonResponse.getJSONArray("results");
 
@@ -61,12 +75,22 @@ public class JsonUtils {
         return processId;
     }
 
+    public static String getResultPayload(String response) {
+
+        final String OUTPUTS = "outputs";
+        JSONObject jsonResponse = new JSONObject(response);
+
+        if (jsonResponse.has(OUTPUTS)) {
+            JSONObject outputs = jsonResponse.getJSONObject(OUTPUTS);
+            return outputs.toString();
+        } else {
+            return "{}";
+        }
+    }
+
     public static Object getResultVar(String response, String varname) {
-        JSONObject jsonResponse = new JSONObject(response.toString());
-
-        JSONObject outputs = jsonResponse.getJSONObject("outputs");
-
-        return outputs.get(varname);
+        JSONObject jsonResponse = new JSONObject(response);
+        return jsonResponse.get(varname);
     }
 
     public static BotSignature getScriptSchema(String response) {

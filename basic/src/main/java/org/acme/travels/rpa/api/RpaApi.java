@@ -162,10 +162,10 @@ public class RpaApi {
         return botSignature;
     }
 
-    public static String startProcessAndWait(String baseUrl, String tenantId, String username, String password, String processName, String payload, Integer waitSeconds)
+    public static RpaResponse startProcessAndWait(String baseUrl, String tenantId, String username, String password, String processName, String payload, Integer waitSeconds)
             throws RpaApiException, InterruptedException {
 
-        String result = null;
+        RpaResponse result = null;
 
         String bearerToken = getBearerToken(baseUrl, tenantId, username, password);
 
@@ -188,7 +188,7 @@ public class RpaApi {
         return result;
     }
 
-    private static String getResult(String baseUrl, String tenantId, String bearerToken, String processId, String processInstanceId) {
+    private static RpaResponse getResult(String baseUrl, String tenantId, String bearerToken, String processId, String processInstanceId) {
 
         String result = "ERROR";
 
@@ -206,7 +206,7 @@ public class RpaApi {
             e.printStackTrace();
         }
 
-        return result;
+        return new RpaResponse(result);
     }
 
     public static String doRest(String command, String urlString, String content, HashMap<String, String> headerMap,
@@ -380,12 +380,13 @@ public class RpaApi {
 
         try {
 
-            String result = startProcessAndWait(baseURL, tenantId, username, password, processName, payload, WAIT_SECS);
+            RpaResponse result = startProcessAndWait(baseURL, tenantId, username, password, processName, payload, WAIT_SECS);
 
-            String status = JsonUtils.getStatus(result);
+            String status = result.getResponseStatus();
+            String responsePayload = result.getResponsePayload();
 
             if (status.equals("done")) {
-                Object outputVar = JsonUtils.getResultVar(result, "out_forecast");
+                Object outputVar = JsonUtils.getResultVar(responsePayload, "out_forecast");
                 System.out.println(outputVar);
             } else {
                 System.out.println("Failed: " + result);
