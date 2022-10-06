@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_dOn6QCFQEDuJ9MulgOXPSw" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd http://www.omg.org/spec/DD/20100524/DC DC.xsd http://www.omg.org/spec/DD/20100524/DI DI.xsd " exporter="jBPM Process Modeler" exporterVersion="2.0" targetNamespace="http://www.omg.org/bpmn20">
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpsim="http://www.bpsim.org/schemas/1.0" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_nq1R8CfIEDu69LqQ1tFLOQ" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd http://www.omg.org/spec/DD/20100524/DC DC.xsd http://www.omg.org/spec/DD/20100524/DI DI.xsd " exporter="jBPM Process Modeler" exporterVersion="2.0" targetNamespace="http://www.omg.org/bpmn20">
   <bpmn2:itemDefinition id="_travellerItem" structureRef="org.acme.travels.Traveller"/>
   <bpmn2:itemDefinition id="_tripItem" structureRef="org.acme.travels.Trip"/>
   <bpmn2:itemDefinition id="_hotelItem" structureRef="org.acme.travels.Hotel"/>
@@ -26,8 +26,22 @@
   <bpmn2:itemDefinition id="_CallActivity_1_hotelOutputXItem" structureRef="org.acme.travels.Hotel"/>
   <bpmn2:itemDefinition id="__636A27D9-B66B-47A8-BE44-A2E11F93A75C_tripInputXItem" structureRef="org.acme.travels.Trip"/>
   <bpmn2:itemDefinition id="__636A27D9-B66B-47A8-BE44-A2E11F93A75C_tripOutputXItem" structureRef="org.acme.travels.Trip"/>
-  <bpmn2:collaboration id="_FCF30E6B-E542-4DB1-85B0-F66F87FC0A7F" name="Default Collaboration">
-    <bpmn2:participant id="_DC2B4E35-4FC6-44D6-9685-1BFC7296D9B1" name="Pool Participant" processRef="travels"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_SkippableInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_PriorityInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_CommentInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_DescriptionInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_CreatedByInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_TaskNameInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_GroupIdInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_ContentInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_NotStartedReassignInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_NotCompletedReassignInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_NotStartedNotifyInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_NotCompletedNotifyInputXItem" structureRef="Object"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_flightInputXItem" structureRef="org.acme.travels.Flight"/>
+  <bpmn2:itemDefinition id="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_hotelInputXItem" structureRef="org.acme.travels.Hotel"/>
+  <bpmn2:collaboration id="_2955CF9B-20AD-44F5-AEA9-78BCFA39CCEC" name="Default Collaboration">
+    <bpmn2:participant id="_C1A0568A-B63A-4999-9E77-65EE2FF33B71" name="Pool Participant" processRef="travels"/>
   </bpmn2:collaboration>
   <bpmn2:process id="travels" drools:packageName="org.acme.travels" drools:version="1.0" drools:adHoc="false" name="travels" isExecutable="true" processType="Public">
     <bpmn2:extensionElements>
@@ -40,6 +54,14 @@
     <bpmn2:property id="trip" itemSubjectRef="_tripItem" name="trip"/>
     <bpmn2:property id="hotel" itemSubjectRef="_hotelItem" name="hotel"/>
     <bpmn2:property id="flight" itemSubjectRef="_flightItem" name="flight"/>
+    <bpmn2:sequenceFlow id="_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6" name="Banned" sourceRef="_1D5B465B-67A2-4695-894B-BAF2FE089F66" targetRef="_4056F2AB-6E65-4778-BB85-F54B698EEBA2">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[Banned]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" language="http://www.java.com/java"><![CDATA[return trip.isBanned();]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="_98876D7D-84A4-4738-B101-8F547F8E28BA" name="Not banned" sourceRef="_1D5B465B-67A2-4695-894B-BAF2FE089F66" targetRef="ParallelGateway_1">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
@@ -52,18 +74,69 @@
     <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="_636A27D9-B66B-47A8-BE44-A2E11F93A75C"/>
     <bpmn2:sequenceFlow id="SequenceFlow_7" sourceRef="ParallelGateway_1" targetRef="CallActivity_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_8" sourceRef="ParallelGateway_1" targetRef="CallActivity_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" sourceRef="CallActivity_2" targetRef="ParallelGateway_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_10" sourceRef="CallActivity_1" targetRef="ParallelGateway_2"/>
-    <bpmn2:sequenceFlow id="_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6" name="Banned" sourceRef="_1D5B465B-67A2-4695-894B-BAF2FE089F66" targetRef="ParallelGateway_2">
+    <bpmn2:sequenceFlow id="SequenceFlow_11" sourceRef="ParallelGateway_2" targetRef="UserTask_2"/>
+    <bpmn2:sequenceFlow id="_EF4DE406-B17F-4711-BCD1-9098F3BE7E68" sourceRef="_4056F2AB-6E65-4778-BB85-F54B698EEBA2" targetRef="EndEvent_1">
       <bpmn2:extensionElements>
-        <drools:metaData name="elementname">
-          <drools:metaValue><![CDATA[Banned]]></drools:metaValue>
+        <drools:metaData name="isAutoConnection.target">
+          <drools:metaValue><![CDATA[true]]></drools:metaValue>
         </drools:metaData>
       </bpmn2:extensionElements>
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" language="http://www.java.com/java"><![CDATA[return trip.isBanned();]]></bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="SequenceFlow_9" sourceRef="CallActivity_2" targetRef="ParallelGateway_2"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_11" sourceRef="ParallelGateway_2" targetRef="UserTask_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_12" sourceRef="UserTask_2" targetRef="EndEvent_1"/>
+    <bpmn2:userTask id="_4056F2AB-6E65-4778-BB85-F54B698EEBA2" name="Stop Travel">
+      <bpmn2:extensionElements>
+        <drools:metaData name="elementname">
+          <drools:metaValue><![CDATA[Stop Travel]]></drools:metaValue>
+        </drools:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6</bpmn2:incoming>
+      <bpmn2:outgoing>_EF4DE406-B17F-4711-BCD1-9098F3BE7E68</bpmn2:outgoing>
+      <bpmn2:ioSpecification>
+        <bpmn2:dataInput id="_4056F2AB-6E65-4778-BB85-F54B698EEBA2_TaskNameInputX" drools:dtype="Object" itemSubjectRef="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_TaskNameInputXItem" name="TaskName"/>
+        <bpmn2:dataInput id="_4056F2AB-6E65-4778-BB85-F54B698EEBA2_flightInputX" drools:dtype="org.acme.travels.Flight" itemSubjectRef="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_flightInputXItem" name="flight"/>
+        <bpmn2:dataInput id="_4056F2AB-6E65-4778-BB85-F54B698EEBA2_hotelInputX" drools:dtype="org.acme.travels.Hotel" itemSubjectRef="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_hotelInputXItem" name="hotel"/>
+        <bpmn2:dataInput id="_4056F2AB-6E65-4778-BB85-F54B698EEBA2_SkippableInputX" drools:dtype="Object" itemSubjectRef="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_SkippableInputXItem" name="Skippable"/>
+        <bpmn2:dataInput id="_4056F2AB-6E65-4778-BB85-F54B698EEBA2_PriorityInputX" drools:dtype="Object" itemSubjectRef="__4056F2AB-6E65-4778-BB85-F54B698EEBA2_PriorityInputXItem" name="Priority"/>
+        <bpmn2:inputSet>
+          <bpmn2:dataInputRefs>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_TaskNameInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_flightInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_hotelInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_SkippableInputX</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_PriorityInputX</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:targetRef>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_TaskNameInputX</bpmn2:targetRef>
+        <bpmn2:assignment>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression"><![CDATA[ConfirmTravel]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression"><![CDATA[_4056F2AB-6E65-4778-BB85-F54B698EEBA2_TaskNameInputX]]></bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:sourceRef>flight</bpmn2:sourceRef>
+        <bpmn2:targetRef>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_flightInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:sourceRef>hotel</bpmn2:sourceRef>
+        <bpmn2:targetRef>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_hotelInputX</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:targetRef>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_SkippableInputX</bpmn2:targetRef>
+        <bpmn2:assignment>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression"><![CDATA[true]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression"><![CDATA[_4056F2AB-6E65-4778-BB85-F54B698EEBA2_SkippableInputX]]></bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation>
+        <bpmn2:targetRef>_4056F2AB-6E65-4778-BB85-F54B698EEBA2_PriorityInputX</bpmn2:targetRef>
+        <bpmn2:assignment>
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression"><![CDATA[1]]></bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression"><![CDATA[_4056F2AB-6E65-4778-BB85-F54B698EEBA2_PriorityInputX]]></bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+    </bpmn2:userTask>
     <bpmn2:parallelGateway id="ParallelGateway_1" name="Book" gatewayDirection="Diverging">
       <bpmn2:extensionElements>
         <drools:metaData name="elementname">
@@ -76,8 +149,8 @@
     </bpmn2:parallelGateway>
     <bpmn2:exclusiveGateway id="_1D5B465B-67A2-4695-894B-BAF2FE089F66" gatewayDirection="Diverging">
       <bpmn2:incoming>_2E2F4445-71FB-40CC-8E1E-8A045E100DD9</bpmn2:incoming>
-      <bpmn2:outgoing>_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6</bpmn2:outgoing>
       <bpmn2:outgoing>_98876D7D-84A4-4738-B101-8F547F8E28BA</bpmn2:outgoing>
+      <bpmn2:outgoing>_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:callActivity id="_636A27D9-B66B-47A8-BE44-A2E11F93A75C" drools:independent="true" drools:waitForCompletion="true" name="Country Check" calledElement="BannedCountryCheck">
       <bpmn2:extensionElements>
@@ -181,9 +254,8 @@
       </bpmn2:dataOutputAssociation>
     </bpmn2:callActivity>
     <bpmn2:parallelGateway id="ParallelGateway_2" gatewayDirection="Converging">
-      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
-      <bpmn2:incoming>_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_11</bpmn2:outgoing>
     </bpmn2:parallelGateway>
     <bpmn2:userTask id="UserTask_2" name="Confirm travel">
@@ -245,6 +317,7 @@
         </drools:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
+      <bpmn2:incoming>_EF4DE406-B17F-4711-BCD1-9098F3BE7E68</bpmn2:incoming>
     </bpmn2:endEvent>
   </bpmn2:process>
   <bpmndi:BPMNDiagram>
@@ -259,71 +332,78 @@
         <dc:Bounds height="56" width="56" x="827" y="267"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape_CallActivity_2" bpmnElement="CallActivity_2">
-        <dc:Bounds height="50" width="110" x="659" y="381"/>
+        <dc:Bounds height="78" width="130" x="659" y="381"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape_CallActivity_1" bpmnElement="CallActivity_1">
-        <dc:Bounds height="50" width="110" x="659" y="153"/>
+        <dc:Bounds height="69" width="123" x="659" y="148.5"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape_StartEvent_1" bpmnElement="StartEvent_1">
-        <dc:Bounds height="56" width="56" x="168" y="14"/>
+        <dc:Bounds height="56" width="56" x="197" y="24"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape__636A27D9-B66B-47A8-BE44-A2E11F93A75C" bpmnElement="_636A27D9-B66B-47A8-BE44-A2E11F93A75C">
-        <dc:Bounds height="62.5" width="94.25" x="359.5" y="13.5"/>
+        <dc:Bounds height="88.5" width="115.25" x="360.5" y="7.5"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape__1D5B465B-67A2-4695-894B-BAF2FE089F66" bpmnElement="_1D5B465B-67A2-4695-894B-BAF2FE089F66">
-        <dc:Bounds height="56" width="56" x="565" y="14"/>
+        <dc:Bounds height="56" width="56" x="565" y="24"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="shape_ParallelGateway_1" bpmnElement="ParallelGateway_1">
         <dc:Bounds height="56" width="56" x="565" y="267"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape__4056F2AB-6E65-4778-BB85-F54B698EEBA2" bpmnElement="_4056F2AB-6E65-4778-BB85-F54B698EEBA2">
+        <dc:Bounds height="50" width="110" x="941" y="113"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="edge_shape_UserTask_2_to_shape_EndEvent_1" bpmnElement="SequenceFlow_12">
         <di:waypoint x="1051" y="295"/>
         <di:waypoint x="1136" y="285"/>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__4056F2AB-6E65-4778-BB85-F54B698EEBA2_to_shape_EndEvent_1" bpmnElement="_EF4DE406-B17F-4711-BCD1-9098F3BE7E68">
+        <di:waypoint x="996" y="138"/>
+        <di:waypoint x="1164" y="267"/>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_ParallelGateway_2_to_shape_UserTask_2" bpmnElement="SequenceFlow_11">
         <di:waypoint x="883" y="295"/>
         <di:waypoint x="941" y="295"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape_CallActivity_2_to_shape_ParallelGateway_2" bpmnElement="SequenceFlow_9">
-        <di:waypoint x="769" y="406"/>
-        <di:waypoint x="855" y="406.7723266010856"/>
-        <di:waypoint x="855" y="406.7723266010856"/>
-        <di:waypoint x="855" y="323"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="edge_shape__1D5B465B-67A2-4695-894B-BAF2FE089F66_to_shape_ParallelGateway_2" bpmnElement="_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6">
-        <di:waypoint x="593" y="42"/>
-        <di:waypoint x="855" y="42.00000000000209"/>
-        <di:waypoint x="855" y="267"/>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_CallActivity_1_to_shape_ParallelGateway_2" bpmnElement="SequenceFlow_10">
-        <di:waypoint x="769" y="178"/>
-        <di:waypoint x="803.6666666666667" y="246.55555555555557"/>
+        <di:waypoint x="782" y="183"/>
+        <di:waypoint x="805.6666666666667" y="242.55555555555557"/>
         <di:waypoint x="827" y="295"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape_CallActivity_2_to_shape_ParallelGateway_2" bpmnElement="SequenceFlow_9">
+        <di:waypoint x="789" y="420"/>
+        <di:waypoint x="855" y="421.7723266010856"/>
+        <di:waypoint x="855" y="421.7723266010856"/>
+        <di:waypoint x="855" y="323"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_ParallelGateway_1_to_shape_CallActivity_2" bpmnElement="SequenceFlow_8">
         <di:waypoint x="593" y="323"/>
         <di:waypoint x="654.7289083394116" y="323"/>
-        <di:waypoint x="715.7777777777778" y="323"/>
-        <di:waypoint x="714" y="381"/>
+        <di:waypoint x="724" y="323"/>
+        <di:waypoint x="724" y="381"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_ParallelGateway_1_to_shape_CallActivity_1" bpmnElement="SequenceFlow_7">
         <di:waypoint x="621" y="295"/>
-        <di:waypoint x="714" y="295"/>
-        <di:waypoint x="714" y="233"/>
-        <di:waypoint x="714" y="203"/>
+        <di:waypoint x="723" y="295"/>
+        <di:waypoint x="720.5" y="234"/>
+        <di:waypoint x="720.5" y="217.5"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape_StartEvent_1_to_shape__636A27D9-B66B-47A8-BE44-A2E11F93A75C" bpmnElement="SequenceFlow_1">
-        <di:waypoint x="204" y="32"/>
-        <di:waypoint x="359.5" y="44.75"/>
+        <di:waypoint x="233" y="42"/>
+        <di:waypoint x="360.5" y="51.75"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape__636A27D9-B66B-47A8-BE44-A2E11F93A75C_to_shape__1D5B465B-67A2-4695-894B-BAF2FE089F66" bpmnElement="_2E2F4445-71FB-40CC-8E1E-8A045E100DD9">
-        <di:waypoint x="406.625" y="44.75"/>
-        <di:waypoint x="565" y="42"/>
+        <di:waypoint x="418.125" y="51.75"/>
+        <di:waypoint x="565" y="52"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="edge_shape__1D5B465B-67A2-4695-894B-BAF2FE089F66_to_shape_ParallelGateway_1" bpmnElement="_98876D7D-84A4-4738-B101-8F547F8E28BA">
-        <di:waypoint x="593" y="70"/>
+        <di:waypoint x="593" y="80"/>
         <di:waypoint x="593" y="169"/>
         <di:waypoint x="593" y="267"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge_shape__1D5B465B-67A2-4695-894B-BAF2FE089F66_to_shape__4056F2AB-6E65-4778-BB85-F54B698EEBA2" bpmnElement="_2CFD92CC-FFA6-4AB6-AAB5-46ACFA1B65F6">
+        <di:waypoint x="593" y="52"/>
+        <di:waypoint x="855" y="51.99998856258203"/>
+        <di:waypoint x="941" y="138"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
@@ -419,10 +499,30 @@
               </bpsim:UnitCost>
             </bpsim:CostParameters>
           </bpsim:ElementParameters>
+          <bpsim:ElementParameters elementRef="_4056F2AB-6E65-4778-BB85-F54B698EEBA2">
+            <bpsim:TimeParameters>
+              <bpsim:ProcessingTime>
+                <bpsim:NormalDistribution mean="0" standardDeviation="0"/>
+              </bpsim:ProcessingTime>
+            </bpsim:TimeParameters>
+            <bpsim:ResourceParameters>
+              <bpsim:Availability>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Availability>
+              <bpsim:Quantity>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:Quantity>
+            </bpsim:ResourceParameters>
+            <bpsim:CostParameters>
+              <bpsim:UnitCost>
+                <bpsim:FloatingParameter value="0"/>
+              </bpsim:UnitCost>
+            </bpsim:CostParameters>
+          </bpsim:ElementParameters>
         </bpsim:Scenario>
       </bpsim:BPSimData>
     </bpmn2:extensionElements>
-    <bpmn2:source>_dOn6QCFQEDuJ9MulgOXPSw</bpmn2:source>
-    <bpmn2:target>_dOn6QCFQEDuJ9MulgOXPSw</bpmn2:target>
+    <bpmn2:source>_nq1R8CfIEDu69LqQ1tFLOQ</bpmn2:source>
+    <bpmn2:target>_nq1R8CfIEDu69LqQ1tFLOQ</bpmn2:target>
   </bpmn2:relationship>
 </bpmn2:definitions>
