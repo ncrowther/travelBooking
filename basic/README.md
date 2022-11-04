@@ -125,6 +125,8 @@ To run the generated native executable, generated in `target/`, execute
 ./target/kogito-travel-agency-{version}-runner
 ```
 
+
+
 ## User interface
 
 IBM Travel Agency comes with basic UI that allows to
@@ -150,6 +152,15 @@ IBM Travel Agency comes with basic UI that allows to
 To start IBM Travel Agency UI just point your browser to [http://localhost:8080](http://localhost:8080)
 
 ## REST API
+
+Access the generated API here:
+
+http://localhost:8080/q/swagger-ui/
+
+business central:
+
+http://localhost:8080/business-central/kie-wb.jsp
+
 
 Once the service is up and running, you can use the following examples to interact with the service.
 
