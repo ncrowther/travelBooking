@@ -87,7 +87,8 @@ public class RpaApi {
         HttpsURLConnection.setDefaultHostnameVerifier(validHosts);
     }
 
-    public static String getBearerToken(String baseURL, String tenantId, String username, String password) throws RpaApiException {
+    public static String getBearerToken(String baseURL, String tenantId, String username, String password)
+            throws RpaApiException {
 
         String token = null;
 
@@ -113,7 +114,7 @@ public class RpaApi {
         return token;
     }
 
-    public static String getProcessIdByName(String baseUrl, String tenantId, String bearerToken, String processName) {
+    public static String getProcessIdByName(String baseUrl, String tenantId, String bearerToken, String processName) throws Exception {
 
         String processId = null;
 
@@ -125,20 +126,17 @@ public class RpaApi {
         headerMap.put("Authorization", "Bearer " + bearerToken);
         headerMap.put("Content-Type", "application/json");
 
-        try {
-            String result = doRest("GET", getProcessUrl, null, headerMap, null, null);
+        String result = doRest("GET", getProcessUrl, null, headerMap, null, null);
 
-            processId = JsonUtils.findProcessId(result, processName);
+        processId = JsonUtils.findProcessId(result, processName);
 
-            // System.out.println(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println(result);
 
         return processId;
     }
 
-    public static BotSignature getProcessDetails(String baseUrl, String tenantId, String bearerToken, String processId) {
+    public static BotSignature getProcessDetails(String baseUrl, String tenantId, String bearerToken,
+            String processId) throws Exception {
 
         BotSignature botSignature = null;
 
@@ -150,45 +148,84 @@ public class RpaApi {
         headerMap.put("Authorization", "Bearer " + bearerToken);
         headerMap.put("Content-Type", "application/json");
 
-        try {
-            String response = doRest("GET", startProcessUrl, null, headerMap, null, null);
+        String response = doRest("GET", startProcessUrl, null, headerMap, null, null);
 
-            botSignature = JsonUtils.getScriptSchema(response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        botSignature = JsonUtils.getScriptSchema(response);
 
         return botSignature;
     }
 
-    public static RpaResponse startProcessAndWait(String baseUrl, String tenantId, String username, String password, String processName, String payload, Integer waitSeconds)
+    public static RpaResponse startProcessAndWait(String baseUrl, String tenantId, String username, String password,
+            String processName, String payload, Integer waitSeconds)
             throws RpaApiException, InterruptedException {
 
-        RpaResponse result = null;
+        final int RETRY_COUNT = 10;
+        final int RETRY_IN_MILISECS = 3000;
+
+        System.out.println("Start process and wait...");
 
         String bearerToken = getBearerToken(baseUrl, tenantId, username, password);
 
         if (bearerToken == null) {
-            throw new RpaApiException("Failed to login  to tenant +  " + tenantId + " with username " + username);
+            throw new RpaApiException(
+                    "Failed to login  to tenant +  " + tenantId + " with username " + username);
         }
 
-        String processId = getProcessIdByName(baseUrl, tenantId, bearerToken, processName);
-
+        String processId = null;
+        for (int i = 0; i < RETRY_COUNT; i++) {
+            try {
+                processId = getProcessIdByName(baseUrl, tenantId, bearerToken, processName);
+                break;
+            } catch (Exception e) {
+                //e.printStackTrace();
+                Thread.sleep(RETRY_IN_MILISECS);
+                System.out.println("Retry getProcessIdByName " + i);
+            }
+        }
         if (processId == null) {
             throw new RpaApiException("Process " + processName + " not found");
         }
 
-        String processInstanceId = startProcess(baseUrl, tenantId, bearerToken, processId, payload);
+        String processInstanceId = "";
+        for (int i = 0; i < RETRY_COUNT; i++) {
+            try {
+                processInstanceId = startProcess(baseUrl, tenantId, bearerToken, processId, payload);
+                break;
+            } catch (Exception e) {
+                // e.printStackTrace();
+                Thread.sleep(RETRY_IN_MILISECS);
+                System.out.println("Retry startProcess " + i);
+            }
+        }
 
+        if (processInstanceId == null) {
+            throw new RpaApiException("Process instance not started after " + RETRY_COUNT + " retries");
+        }
+
+        // Wait for a response for a designated number of secs
         Thread.sleep(waitSeconds * 1000);
 
-        result = getResult(baseUrl, tenantId, bearerToken, processId, processInstanceId);
+        RpaResponse result = null;
+        for (int i = 0; i < RETRY_COUNT; i++) {
+            try {
+                result = getResult(baseUrl, tenantId, bearerToken, processId, processInstanceId);
+                break;
+            } catch (Exception e) {
+                //e.printStackTrace();
+                Thread.sleep(RETRY_IN_MILISECS);
+                System.out.println("Retry getResult " + i);
+            }
+        }
+
+        if (result == null) {
+            throw new RpaApiException("Failed to retreive process result after " + RETRY_COUNT + " retries");
+        }
 
         return result;
     }
 
-    private static RpaResponse getResult(String baseUrl, String tenantId, String bearerToken, String processId, String processInstanceId) {
+    private static RpaResponse getResult(String baseUrl, String tenantId, String bearerToken, String processId,
+            String processInstanceId) throws Exception {
 
         String result = "ERROR";
 
@@ -200,11 +237,7 @@ public class RpaApi {
         headerMap.put("Authorization", "Bearer " + bearerToken);
         headerMap.put("Content-Type", "application/json");
 
-        try {
-            result = doRest("GET", getProcessUrl, null, headerMap, null, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        result = doRest("GET", getProcessUrl, null, headerMap, null, null);
 
         return new RpaResponse(result);
     }
@@ -219,56 +252,51 @@ public class RpaApi {
         if ((!command.equals("GET")) && (!command.equals("POST")) && (!command.equals("PUT"))) {
             throw new RpaApiException("Unsupported command: " + command + ".  Supported commands are GET, POST, PUT");
         }
-        try {
-            URL url = new URL(urlString);
-            HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
-            httpUrlConnection.setRequestMethod(command);
 
-            if (headerMap != null) {
-                Set keySet = headerMap.keySet();
-                Iterator it = keySet.iterator();
-                while (it.hasNext()) {
-                    String key = (String) it.next();
-                    httpUrlConnection.addRequestProperty(key, headerMap.get(key));
-                }
+        URL url = new URL(urlString);
+        HttpURLConnection httpUrlConnection = (HttpURLConnection) url.openConnection();
+        httpUrlConnection.setRequestMethod(command);
 
+        if (headerMap != null) {
+            Set keySet = headerMap.keySet();
+            Iterator it = keySet.iterator();
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                httpUrlConnection.addRequestProperty(key, headerMap.get(key));
             }
-
-            if ((userid != null) && (!userid.isEmpty())) {
-                String authorization = "Basic " + new String(Base64.encodeBase64(
-                        new String(new StringBuilder(String.valueOf(userid)).append(":").append(password).toString())
-                                .getBytes()));
-                httpUrlConnection.setRequestProperty("Authorization", authorization);
-            }
-
-            if ((content != null) && ((command.equals("POST")) || (command.equals("PUT")))) {
-                httpUrlConnection.setDoOutput(true);
-                OutputStreamWriter wr = new OutputStreamWriter(httpUrlConnection.getOutputStream());
-                wr.write(content);
-                wr.flush();
-                wr.close();
-            }
-
-            InputStreamReader inReader = new InputStreamReader(httpUrlConnection.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inReader);
-            StringBuffer sb = new StringBuffer();
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                sb.append(line);
-                line = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-
-            httpUrlConnection.disconnect();
-
-            if (debug) {
-                System.out.println("doRest: result is " + sb.toString());
-            }
-            return sb.toString();
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            throw new RpaApiException("doRest exception: " + e.toString());
         }
+
+        if ((userid != null) && (!userid.isEmpty())) {
+            String authorization = "Basic " + new String(Base64.encodeBase64(
+                    new String(new StringBuilder(String.valueOf(userid)).append(":").append(password).toString())
+                            .getBytes()));
+            httpUrlConnection.setRequestProperty("Authorization", authorization);
+        }
+
+        if ((content != null) && ((command.equals("POST")) || (command.equals("PUT")))) {
+            httpUrlConnection.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(httpUrlConnection.getOutputStream());
+            wr.write(content);
+            wr.flush();
+            wr.close();
+        }
+
+        InputStreamReader inReader = new InputStreamReader(httpUrlConnection.getInputStream());
+        BufferedReader bufferedReader = new BufferedReader(inReader);
+        StringBuffer sb = new StringBuffer();
+        String line = bufferedReader.readLine();
+        while (line != null) {
+            sb.append(line);
+            line = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+
+        httpUrlConnection.disconnect();
+
+        if (debug) {
+            System.out.println("doRest: result is " + sb.toString());
+        }
+        return sb.toString();
     }
 
     public static class RpaApiException extends Exception {
@@ -343,9 +371,10 @@ public class RpaApi {
         return result.toString();
     }
 
-    private static String startProcess(String baseUrl, String tenantId, String bearerToken, String processId, String payload) {
+    private static String startProcess(String baseUrl, String tenantId, String bearerToken, String processId,
+            String payload) throws Exception {
 
-        String processInstanceId = "ERROR";
+        String processInstanceId = null;
 
         String startProcessUrl = baseUrl
                 + "/v2.0/workspace/" + tenantId + "/process/" + processId + "/instance?lang=en-US";
@@ -355,15 +384,11 @@ public class RpaApi {
         headerMap.put("Authorization", "Bearer " + bearerToken);
         headerMap.put("Content-Type", "application/json");
 
-        try {
-            String response = doRest("POST", startProcessUrl, payload, headerMap, null, null);
+        String response = doRest("POST", startProcessUrl, payload, headerMap, null, null);
 
-            processInstanceId = JsonUtils.getProcessId(response);
+        processInstanceId = JsonUtils.getProcessId(response);
 
-            // System.out.println(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // System.out.println(result);
 
         return processInstanceId;
     }
@@ -374,19 +399,19 @@ public class RpaApi {
         String tenantId = "e780ec1f-e62f-4148-8335-2f3ac251373e";
         String username = "ncrowther@uk.ibm.com";
         String password = "Porker01!";
-        String processName = "Weather4U";
-        String payload = "{ \"payload\": { \"in_region\": \"328328\" }}";
+        String processName = "TravelAdvisoryProcess";
+        String payload = "{ \"payload\": { \"in_destination\": \"Barbados\" }}";
         final int WAIT_SECS = 30;
 
         try {
-
-            RpaResponse result = startProcessAndWait(baseURL, tenantId, username, password, processName, payload, WAIT_SECS);
+            RpaResponse result = startProcessAndWait(baseURL, tenantId, username, password, processName, payload,
+                    WAIT_SECS);
 
             String status = result.getResponseStatus();
             String responsePayload = result.getResponsePayload();
 
             if (status.equals("done")) {
-                Object outputVar = JsonUtils.getResultVar(responsePayload, "out_forecast");
+                Object outputVar = JsonUtils.getResultVar(responsePayload, "out_travelAdvice");
                 System.out.println(outputVar);
             } else {
                 System.out.println("Failed: " + result);
@@ -395,6 +420,5 @@ public class RpaApi {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

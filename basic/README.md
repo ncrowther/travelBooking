@@ -105,7 +105,9 @@ When using native image compilation, you will also need:
 #### Compile and Run in Local Dev Mode
 
 ```sh
-mvn clean package quarkus:dev
+
+
+
 ```
 
 NOTE: With dev mode of Quarkus you can take advantage of hot reload for business assets like processes, rules and decision
@@ -149,17 +151,17 @@ IBM Travel Agency comes with basic UI that allows to
 
 ### Cancel selected travel request
 
-To start IBM Travel Agency UI just point your browser to [http://localhost:8080](http://localhost:8080)
+To start IBM Travel Agency UI just point your browser to [http://localhost:8081](http://localhost:8081)
 
 ## REST API
 
 Access the generated API here:
 
-http://localhost:8080/q/swagger-ui/
+http://localhost:8081/q/swagger-ui/
 
 business central:
 
-http://localhost:8080/business-central/kie-wb.jsp
+http://localhost:8081/business-central/kie-wb.jsp
 
 
 Once the service is up and running, you can use the following examples to interact with the service.
@@ -169,7 +171,7 @@ Once the service is up and running, you can use the following examples to intera
 Send travel that does not require visa
 
 ```sh
-curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8080/travels -d @- << EOF
+curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8081/travels -d @- << EOF
 {
   "traveller" : {
     "firstName" : "John",
@@ -199,7 +201,7 @@ This will directly go to 'ConfirmTravel' user task.
 Send travel request that requires does require visa
 
 ```sh
-curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8080/travels -d @- << EOF
+curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8081/travels -d @- << EOF
 {
   "traveller" : {
     "firstName" : "Jan",
@@ -230,7 +232,7 @@ This will stop at 'VisaApplication' user task.
 Returns list of travel requests currently active:
 
 ```sh
-curl -X GET http://localhost:8080/travels
+curl -X GET http://localhost:8081/travels
 ```
 
 As response an array of travels is returned.
@@ -240,7 +242,7 @@ As response an array of travels is returned.
 Returns travel request with given id (if active):
 
 ```sh
-curl -X GET http://localhost:8080/travels/{uuid}
+curl -X GET http://localhost:8081/travels/{uuid}
 ```
 
 As response a single travel request is returned if found, otherwise 404 Not Found is returned.
@@ -250,7 +252,7 @@ As response a single travel request is returned if found, otherwise 404 Not Foun
 Cancels travel request with given id
 
 ```sh
-curl -X DELETE http://localhost:8080/travels/{uuid}
+curl -X DELETE http://localhost:8081/travels/{uuid}
 ```
 
 ### GET /travels/{id}/tasks
@@ -258,7 +260,7 @@ curl -X DELETE http://localhost:8080/travels/{uuid}
 Returns currently assigned user tasks for give travel request:
 
 ```sh
-curl -X GET http://localhost:8080/travels/{uuid}/tasks
+curl -X GET http://localhost:8081/travels/{uuid}/tasks
 ```
 
 ### GET /travels/{id}/VisaApplication/{taskId}
@@ -266,7 +268,7 @@ curl -X GET http://localhost:8080/travels/{uuid}/tasks
 Returns visa application task information:
 
 ```sh
-curl -X GET http://localhost:8080/travels/{uuid}/VisaApplication/{task-uuid}
+curl -X GET http://localhost:8081/travels/{uuid}/VisaApplication/{task-uuid}
 ```
 
 ### POST /travels/{id}/VisaApplication/{taskId}
@@ -274,7 +276,7 @@ curl -X GET http://localhost:8080/travels/{uuid}/VisaApplication/{task-uuid}
 Complete visa application task by sending a valid URL to the VISA document stored in any cloud provider:
 
 ```sh
-curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8080/travels/{uuid}/VisaApplication/{task-uuid} -d '{"visaApplication": "https://mydrive.example.com/JanVisaApplicationForm.pdf"}'
+curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8081/travels/{uuid}/VisaApplication/{task-uuid} -d '{"visaApplication": "https://mydrive.example.com/JanVisaApplicationForm.pdf"}'
 ```
 
 ### GET /travels/{id}/ConfirmTravel/{taskId}
@@ -282,7 +284,7 @@ curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST h
 Returns travel (hotel, flight) task information required for confirmation:
 
 ```sh
-curl -X GET http://localhost:8080/travels/{uuid}/ConfirmTravel/{task-uuid}
+curl -X GET http://localhost:8081/travels/{uuid}/ConfirmTravel/{task-uuid}
 ```
 
 ### POST /travels/{id}/ConfirmTravel/{taskId}
@@ -290,7 +292,7 @@ curl -X GET http://localhost:8080/travels/{uuid}/ConfirmTravel/{task-uuid}
 Completes confirms travel task - meaning confirms (and completes) the travel request
 
 ```sh
-curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8080/travels/{uuid}/ConfirmTravel/{task-uuid} -d '{}'
+curl -H "Content-Type: application/json" -H "Accept: application/json" -X POST http://localhost:8081/travels/{uuid}/ConfirmTravel/{task-uuid} -d '{}'
 ```
 
 ## Known issues
