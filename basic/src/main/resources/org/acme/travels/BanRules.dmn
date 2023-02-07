@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_BB1806E4-A734-41C4-9CD2-4D309CB01D1D" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_C8E26571-A441-4DF8-8530-DBB21C714ABA" name="BanRules" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_BB1806E4-A734-41C4-9CD2-4D309CB01D1D">
+  <dmn:extensionElements/>
+  <dmn:inputData id="_B1E1E62A-F6C0-40A3-9948-5FFA7DD7EBBF" name="Advisory Level">
+    <dmn:extensionElements/>
+    <dmn:variable id="_2B0023C5-48AC-4D36-BE12-D9894F3D7BDA" name="Advisory Level" typeRef="string"/>
+  </dmn:inputData>
+  <dmn:decision id="_BC85AC1B-F453-49D9-B171-72A042E571B9" name="Banned Travel">
+    <dmn:extensionElements/>
+    <dmn:variable id="_8252E095-913D-44FA-9261-EAB0B532031F" name="Banned Travel" typeRef="boolean"/>
+    <dmn:informationRequirement id="_ED63185E-7E7E-4529-9133-1FE43CE65890">
+      <dmn:requiredInput href="#_B1E1E62A-F6C0-40A3-9948-5FFA7DD7EBBF"/>
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="_30ACCD70-D641-4951-B035-E9EF1E0E0DC1" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_CD5D0F61-4A7D-47D0-9AD6-88038A4D7701">
+        <dmn:inputExpression id="_492CD34E-9D5F-4FC2-ADAC-AE051F848EDD">
+          <dmn:text>Advisory Level</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_3A2BACBB-59AC-4DF9-9848-3AB210F8F691"/>
+      <dmn:annotation name="Description"/>
+      <dmn:rule id="_6D114C0D-54BA-4BE4-A5FC-87560B150EAB">
+        <dmn:inputEntry id="_07DBAE58-9B4C-4967-B815-B311F3171F73">
+          <dmn:text>"L1"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_89851C75-316E-4484-A601-5F431BCF1221">
+          <dmn:text>false</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_51FE676B-7DC2-425C-8E3C-011D4625C90A">
+        <dmn:inputEntry id="_3D737629-8FF0-4D6D-B5A2-80E63E47FAD1">
+          <dmn:text>"L2"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_ED91D923-9FAE-4B76-8003-4DA22EB77E5A">
+          <dmn:text>false</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_D25EB870-AD58-41DF-9E4F-ADB9053974C4">
+        <dmn:inputEntry id="_2B6A1429-00B8-4DCE-8131-3285C2E42DF6">
+          <dmn:text>"L3"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_9ACA3D40-BAA8-4140-8C4C-732D69E444A2">
+          <dmn:text>false</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="_16E9DDEE-A3AB-4A9F-97CC-A4AFFDBFC28A">
+        <dmn:inputEntry id="_301B2893-5CCC-450B-ACDA-67D165D0B6D7">
+          <dmn:text>"L4"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_987281A7-85BE-4173-A873-841B52BB5B33">
+          <dmn:text>true</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>Country is banned</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="_1E3347BF-7338-4216-B1A1-0FED8CCD5E79" name="DRG">
+      <di:extension>
+        <kie:ComponentsWidthsExtension>
+          <kie:ComponentWidths dmnElementRef="_30ACCD70-D641-4951-B035-E9EF1E0E0DC1">
+            <kie:width>50</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>100</kie:width>
+            <kie:width>197</kie:width>
+          </kie:ComponentWidths>
+        </kie:ComponentsWidthsExtension>
+      </di:extension>
+      <dmndi:DMNShape id="dmnshape-drg-_B1E1E62A-F6C0-40A3-9948-5FFA7DD7EBBF" dmnElementRef="_B1E1E62A-F6C0-40A3-9948-5FFA7DD7EBBF" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="846" y="397" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="dmnshape-drg-_BC85AC1B-F453-49D9-B171-72A042E571B9" dmnElementRef="_BC85AC1B-F453-49D9-B171-72A042E571B9" isCollapsed="false">
+        <dmndi:DMNStyle>
+          <dmndi:FillColor red="255" green="255" blue="255"/>
+          <dmndi:StrokeColor red="0" green="0" blue="0"/>
+          <dmndi:FontColor red="0" green="0" blue="0"/>
+        </dmndi:DMNStyle>
+        <dc:Bounds x="846" y="233" width="100" height="50"/>
+        <dmndi:DMNLabel/>
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="dmnedge-drg-_ED63185E-7E7E-4529-9133-1FE43CE65890" dmnElementRef="_ED63185E-7E7E-4529-9133-1FE43CE65890">
+        <di:waypoint x="896" y="422"/>
+        <di:waypoint x="896" y="283"/>
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>
