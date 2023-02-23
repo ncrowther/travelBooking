@@ -106,6 +106,7 @@ When using native image compilation, you will also need:
 
 ```sh
 
+mvn clean compile quarkus:dev
 
 
 ```

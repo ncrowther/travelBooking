@@ -1,6 +1,5 @@
 
-	*ñ¨û,€_C­„	Ã§¯€Ñ
-defVar --name in_destination --type String --value RussianFederation --parameter  --required 
+	*ñ¨û,€_C­„	Ã§¯€•defVar --name in_destination --type String --value RussianFederation --parameter  --required 
 defVar --name out_doNotTravel --type Boolean --value False --output 
 defVar --name out_travelAdvice --type String --output 
 defVar --name browserInstance --type String --value web01
@@ -20,4 +19,5 @@ parseText --text "${out_travelAdvice}" --query "Level 4" --startindex 1 foundInd
 if --left "${foundIndex}" --operator "Greater_Than" --right 0
 	setVar --name "${out_doNotTravel}" --value true
 endIf
-webClose --name "${browserInstance}""	P4¸Ž	wÔH˜@>J¶0z*21.0.4.0
+logMessage --message "Advisory: ${out_travelAdvice}" --type "Info"
+webClose --name "${browserInstance}""	P4¸Ž	wÔH˜@>J¶0z*23.0.0.0
