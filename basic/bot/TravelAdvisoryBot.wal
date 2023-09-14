@@ -1,5 +1,5 @@
 
-	*ñ¨û,€_C­„	Ã§¯€•defVar --name in_destination --type String --value RussianFederation --parameter  --required 
+	*ñ¨û,€_C­„	Ã§¯€ÃdefVar --name in_destination --type String --value UnitedKingdom --parameter  --required 
 defVar --name out_doNotTravel --type Boolean --value False --output 
 defVar --name out_travelAdvice --type String --output 
 defVar --name browserInstance --type String --value web01
@@ -9,7 +9,7 @@ defVar --name travelAdviceFullUrl --type String
 defVar --name foundIndex --type Numeric
 
 setVar --name "${travelAdviceFullUrl}" --value "${travelAdviceBaseUrl}/${in_destination}.html"
-webStart --name "${browserInstance}" --type "Chrome"
+webStart --name "${browserInstance}" --type "Firefox" --userprofilepreferences "AutomationOptimized" --downloadpath "C:\\Users\\092463866\\AppData\\Local\\IBM Robotic Process Automation\\downloads" --incognito 
 webNavigate --url "${travelAdviceFullUrl}"
 //Get travel advisory
 webWaitElement --selector "CssSelector" --css "#tsg-rwd-advisories > div > a > h3.tsg-rwd-eab-title-frame" success=value
@@ -20,4 +20,4 @@ if --left "${foundIndex}" --operator "Greater_Than" --right 0
 	setVar --name "${out_doNotTravel}" --value true
 endIf
 logMessage --message "Advisory: ${out_travelAdvice}" --type "Info"
-webClose --name "${browserInstance}""	P4¸Ž	wÔH˜@>J¶0z*23.0.0.0
+webClose --name "${browserInstance}" --leavebrowseropen "	P4¸Ž	wÔH˜@>J¶0z*23.0.7.0

@@ -1,42 +1,29 @@
 <?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">        
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kie.kogito.examples</groupId>
     <artifactId>kogito-travel-agency-example</artifactId>
-    <version>1.25.0.Final</version>
+    <version>1.43.0.Final</version>
   </parent>
   <artifactId>kogito-travel-agency-example-basic</artifactId>
   <name>Kogito Example :: Travel Agency :: Basic</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>2.11.0.Final</quarkus-plugin.version>
-    <commons-codec>commons-codec</commons-codec>    
+    <quarkus-plugin.version>2.16.9.Final</quarkus-plugin.version>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>2.11.0.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.16.9.Final</quarkus.platform.version>
     <kogito.bom.group-id>org.kie.kogito</kogito.bom.group-id>
     <kogito.bom.artifact-id>kogito-bom</kogito.bom.artifact-id>
-    <kogito.bom.version>${project.version}</kogito.bom.version>
+    <kogito.bom.version>1.43.0.Final</kogito.bom.version>
+    <version.org.kie.kogito>1.43.0.Final</version.org.kie.kogito>
+    <version.org.drools>8.43.0.Final</version.org.drools>
   </properties>
   <dependencyManagement>
-    <dependencies>  
-      <dependency>
-        <groupId>${commons-codec}</groupId>
-        <artifactId>${commons-codec}</artifactId>
-        <version>1.15</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>   
-      <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20220320</version>
-        <type>pom</type>
-        <scope>import</scope>        
-      </dependency>
+    <dependencies>
       <dependency>
         <groupId>${quarkus.platform.group-id}</groupId>
         <artifactId>${quarkus.platform.artifact-id}</artifactId>
@@ -57,15 +44,10 @@
         <version>${version.org.drools}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
+      </dependency>  
     </dependencies>
   </dependencyManagement>
   <dependencies>
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20220320</version>
-    </dependency>  
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus</artifactId>
@@ -85,6 +67,11 @@
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-addons-quarkus-monitoring-prometheus</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20220320</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
